@@ -1,0 +1,36 @@
+<.header>
+  <%= @exercise.name %>
+  <:actions>
+    <.link patch={~p"/exercises/#{@exercise}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit exercise</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<div class="max-w-sm rounded overflow-hidden shadow-lg">
+  <img class="w-full" src="/images/bicep_curl.jpg" alt="Bicep Curl">
+  <div class="px-6 py-4">
+    <div class="font-bold text-xl mb-2"><%= @exercise.equipment %></div>
+    <p class="text-gray-700 text-base">
+      <%= @exercise.description %>
+    </p>
+  </div>
+  <div class="px-6 pt-4 pb-2">
+    <iframe width="335" height="315"
+      src={@exercise.video_link}>
+    </iframe>
+  </div>
+</div>
+
+<.back navigate={~p"/exercises"}>Back to exercises</.back>
+
+<.modal :if={@live_action == :edit} id="exercise-modal" show on_cancel={JS.patch(~p"/exercises/#{@exercise}")}>
+  <.live_component
+    module={HealthTrackerWeb.ExerciseLive.FormComponent}
+    id={@exercise.id}
+    title={@page_title}
+    action={@live_action}
+    exercise={@exercise}
+    patch={~p"/exercises/#{@exercise}"}
+  />
+</.modal>

@@ -68,6 +68,13 @@ defmodule HealthTrackerWeb.Router do
       on_mount: [{HealthTrackerWeb.UserAuth, :ensure_authenticated}] do
       live "/users/settings", UserSettingsLive, :edit
       live "/users/settings/confirm_email/:token", UserSettingsLive, :confirm_email
+      
+      live "/exercises", ExerciseLive.Index, :index
+      live "/exercises/new", ExerciseLive.Index, :new
+      live "/exercises/:id/edit", ExerciseLive.Index, :edit
+
+      live "/exercises/:id", ExerciseLive.Show, :show
+      live "/exercises/:id/show/edit", ExerciseLive.Show, :edit
     end
   end
 
